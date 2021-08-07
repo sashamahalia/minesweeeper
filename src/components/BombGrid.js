@@ -1,7 +1,7 @@
 import { Grid, Cell } from "styled-css-grid";
 import styled from 'styled-components'
 import { useDispatch, useSelector } from "react-redux";
-import { incrementFlags } from "../redux/counter";
+import { incrementFlags, incrementTurns } from "../redux/counter";
 import _ from "lodash";
 import { FaBomb } from "react-icons/fa"
 
@@ -21,11 +21,16 @@ const { bombs } = useSelector(state => state.mines);
 const handleRightClick = event => {
   event.preventDefault();
   dispatch(incrementFlags());
+  dispatch(incrementTurns());
+}
+
+const handleLeftClick = () => {
+  dispatch(incrementTurns());
 }
 // Creates 256 cells, shows bomb icon if cell matches random mine generation.
   const cells = [..._.range(256)].map(index => 
     <Cell key={index}>
-      <Button onContextMenu={event => handleRightClick(event)}>
+      <Button onClick={event => handleLeftClick()} onContextMenu={event => handleRightClick(event)}>
           {
             (index === bombs.find(element => element === index) ? <FaBomb /> : "h")
           }

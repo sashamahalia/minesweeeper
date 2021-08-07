@@ -4,7 +4,7 @@ import { CgFlagAlt } from "react-icons/cg"
 function FlagCount() {
   const style = { color: "red", fontSize: "1.5em" }
 
-  const { flagCount } = useSelector(state => state.flags);
+  const { flagCount } = useSelector(state => state.count);
 
   return (
       <h2> <CgFlagAlt style={style} /> {flagCount}</h2>

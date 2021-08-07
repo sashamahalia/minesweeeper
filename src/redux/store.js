@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import flagReducer from "./counter";
+import countReducer from "./counter";
 import mineReducer from "./mines";
 
 export default configureStore({
   reducer: {
-    flags: flagReducer,
+    count: countReducer,
     mines: mineReducer
   }
 });
