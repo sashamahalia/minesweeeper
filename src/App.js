@@ -1,5 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { incrementFlags } from "./redux/counter";
+import { CgFlagAlt } from "react-icons/cg"
+import Header from "./components/Header";
 
 function App() {
 
@@ -13,7 +15,8 @@ function App() {
 
   return (
     <div className="App">
-      <h1> The count is {count}</h1>
+      
+      <Header />
       <button onContextMenu={event => handleRightClick(event)}>increment</button>
     </div>
   );
