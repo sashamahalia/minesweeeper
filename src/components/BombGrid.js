@@ -8,22 +8,21 @@ import { FaBomb } from "react-icons/fa"
 function BombGrid() {
 
   const Button = styled.button`
-  background: transparent;
-  border: 2px solid palevioletred;
-  color: palevioletred;
-  margin: 0 1em;
-  padding: 0.25em 1em;
+  background: lightgreen;
+  border: 2px solid black;
+  color: black;
+  margin: 0;
+  padding: 3em 3em;
 `
 const dispatch = useDispatch();
 
 const { bombs } = useSelector(state => state.mines);
-console.log(bombs);
 
 const handleRightClick = event => {
   event.preventDefault();
   dispatch(incrementFlags());
 }
-
+// Creates 256 cells, shows bomb icon if cell matches random mine generation.
   const cells = [..._.range(256)].map(index => 
     <Cell key={index}>
       <Button onContextMenu={event => handleRightClick(event)}>
