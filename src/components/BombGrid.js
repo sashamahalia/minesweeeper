@@ -1,7 +1,9 @@
 import { Grid, Cell } from "styled-css-grid";
 import styled from 'styled-components'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { incrementFlags } from "../redux/counter";
+import _ from "lodash";
+import { FaBomb } from "react-icons/fa"
 
 function BombGrid() {
 
@@ -14,12 +16,24 @@ function BombGrid() {
 `
 const dispatch = useDispatch();
 
+const { bombs } = useSelector(state => state.mines);
+console.log(bombs);
+
 const handleRightClick = event => {
   event.preventDefault();
   dispatch(incrementFlags());
 }
 
-  const cells = [...Array(256).keys()].map((index) => <Cell key={index}><Button onContextMenu={event => handleRightClick(event)}>h</Button></Cell>)
+  const cells = [..._.range(256)].map(index => 
+    <Cell key={index}>
+      <Button onContextMenu={event => handleRightClick(event)}>
+          {
+            (index === bombs.find(element => element === index) ? <FaBomb /> : "h")
+          }
+        </Button>
+      </Cell>
+    )
+
   return (
     <Grid gap={"0px"} columns={16}>
       {cells}
