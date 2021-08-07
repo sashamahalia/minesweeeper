@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const flagSlice = createSlice({
+export const countSlice = createSlice({
   name: 'flag',
   initialState: {
-    count: 0
+    flagCount: 0,
+    turnCount: 0
   },
   reducers: {
     incrementFlags: state => {
-      state.count += 1
+      state.flagCount += 1
     },
-    // decrement: state => {
-    //   state.count -= 1
-    // },
+    incrementTurns: state => { state.turnCount += 1
+    },
     // incrementByAmount: (state, action) => {
     //   state.count += action.payload
     // }
@@ -19,6 +19,6 @@ export const flagSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementFlags } = flagSlice.actions
+export const { incrementFlags, incrementTurns } = countSlice.actions
 
-export default flagSlice.reducer
+export default countSlice.reducer
