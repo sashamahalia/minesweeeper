@@ -2,6 +2,7 @@ import { Grid, Cell } from "styled-css-grid";
 import styled from 'styled-components'
 import { useDispatch, useSelector } from "react-redux";
 import { incrementFlags, incrementTurns } from "../redux/counter";
+import { gameOver } from "../redux/mines";
 import _ from "lodash";
 import { FaBomb } from "react-icons/fa"
 
@@ -14,6 +15,7 @@ function BombGrid() {
   margin: 0;
   padding: 3em 3em;
 `
+
 const dispatch = useDispatch();
 
 const { bombs } = useSelector(state => state.mines);
@@ -24,17 +26,28 @@ const handleRightClick = event => {
   dispatch(incrementTurns());
 }
 
-console.log(Button.id);
 const handleLeftClick = event => {
   const square = Number(event.target.dataset.index);
   // Get the index from square clicked on. If it matches one of the random bomb indexes, a bomb icon replaces the default view.
   if (square === bombs.find(element => element === square)) {
-    console.log('match');
+    dispatch(gameOver());
     event.target.firstChild.data = "bomb"
   }
   console.log(square);
   console.log(event.target.firstChild.data);
   dispatch(incrementTurns());
+}
+const filter = i => {
+
+  for (const bomb of bombs) {
+    console.log('bomb', bomb)
+    if (bomb === i) {
+      return <FaBomb />
+    }
+    else {
+      return 's'
+    }
+  }
 }
 // Creates 256 cells, shows bomb icon if cell matches random mine generation.
   const cells = [..._.range(256)].map(index => 
