@@ -24,15 +24,26 @@ const handleRightClick = event => {
   dispatch(incrementTurns());
 }
 
-const handleLeftClick = () => {
+console.log(Button.id);
+const handleLeftClick = event => {
+  const square = Number(event.target.dataset.index);
+  // Get the index from square clicked on. If it matches one of the random bomb indexes, a bomb icon replaces the default view.
+  if (square === bombs.find(element => element === square)) {
+    console.log('match');
+    event.target.firstChild.data = "bomb"
+  }
+  console.log(square);
+  console.log(event.target.firstChild.data);
   dispatch(incrementTurns());
 }
 // Creates 256 cells, shows bomb icon if cell matches random mine generation.
   const cells = [..._.range(256)].map(index => 
-    <Cell key={index}>
-      <Button onClick={event => handleLeftClick()} onContextMenu={event => handleRightClick(event)}>
+    <Cell
+      key={index}
+      >
+      <Button data-index={index} onClick={event => handleLeftClick(event)} onContextMenu={event => handleRightClick(event)}>
           {
-            (index === bombs.find(element => element === index) ? <FaBomb /> : "h")
+            "s"
           }
         </Button>
       </Cell>
