@@ -2,6 +2,7 @@ import { Grid, Cell } from "styled-css-grid";
 import styled from 'styled-components'
 import { useDispatch, useSelector } from "react-redux";
 import { incrementFlags, incrementTurns } from "../redux/counter";
+// import { isBomb, isTouchingBomb, isFlagged } from "../redux/tiles";
 import { gameOver } from "../redux/mines";
 import _ from "lodash";
 import { FaBomb } from "react-icons/fa"
@@ -19,9 +20,11 @@ function BombGrid() {
 const dispatch = useDispatch();
 
 const { bombs } = useSelector(state => state.mines);
+// const { tile } =  useSelector(state => state.tiles);
 
 const handleRightClick = event => {
   event.preventDefault();
+  // dispatch(isFlagged());
   dispatch(incrementFlags());
   dispatch(incrementTurns());
 }
@@ -30,11 +33,43 @@ const handleLeftClick = event => {
   const square = Number(event.target.dataset.index);
   // Get the index from square clicked on. If it matches one of the random bomb indexes, a bomb icon replaces the default view.
   if (square === bombs.find(element => element === square)) {
+    // dispatch(isBomb());
     dispatch(gameOver());
     event.target.firstChild.data = "bomb"
   }
+
+  let counter = 0;
+
+  if (bombs.find(bomb => bomb === square - 1)) {
+    counter += 1
+  }
+  if (bombs.find(bomb => bomb === square + 1)) {
+    counter += 1
+  }
+  if (bombs.find(bomb => bomb === square - 15)) {
+    counter += 1
+  }
+  if (bombs.find(bomb => bomb === square - 16)) {
+    counter += 1
+  }
+  if (bombs.find(bomb => bomb === square - 17)) {
+    counter += 1
+  }
+  if (bombs.find(bomb => bomb === square + 15)) {
+    counter += 1
+  }
+  if (bombs.find(bomb => bomb === square + 16)) {
+    counter += 1
+  }
+  if (bombs.find(bomb => bomb === square + 17)) {
+    counter += 1
+  }
+  console.log(counter);
+
+  if (counter) {
+    event.target.firstChild.data = counter;
+  }
   console.log(square);
-  console.log(event.target.firstChild.data);
   dispatch(incrementTurns());
 }
 const filter = i => {
@@ -56,7 +91,7 @@ const filter = i => {
       >
       <Button data-index={index} onClick={event => handleLeftClick(event)} onContextMenu={event => handleRightClick(event)}>
           {
-            "s"
+           " "
           }
         </Button>
       </Cell>
